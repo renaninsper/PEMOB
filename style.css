@@ -1,0 +1,81 @@
+#app {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.div1 {
+    width: 25%;
+    height: 96%;
+    background-color: #fff;
+}
+  
+.div2 {
+    width: 75%;
+    height: 100%;
+    background-color: lightcoral;
+}  
+
+#tree {
+    overflow-x: hidden;
+}
+
+a[id^="no_checkbox"] .jstree-checkbox{
+    display: none;
+}
+
+.jstree-anchor {
+    display: inline-table;
+    white-space: normal;
+    padding: 0px 40px 0px 0px;
+    margin: 0;
+    vertical-align: top;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+.jstree-default .tema .jstree-icon:empty {
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+}
+
+.jstree-default .subtema .jstree-icon:empty {
+    width: 19px;
+    height: 24px;
+    line-height: 19px;
+}
+
+.jstree-anchor.jstree-disabled.tema {
+    font-weight: bold;
+    font-size: 13.5px;
+    color: #414042;
+}
+
+.jstree-anchor.jstree-disabled.subtema {
+    font-size: 12.3px;
+    color: #414042;
+}
+
+a[id^="no_checkbox_"].jstree-hovered.subtema .jstree-icon:empty {
+    width: 22px;
+    height: 24px;
+    line-height: 22px;
+}
+
+a[id^="no_checkbox_"].jstree-anchor.jstree-disabled.jstree-hovered {
+    color: #c00026;
+    font-weight: bold;
+    font-size: 13.5px;
+  }
+
+.jstree-default a[id^="no_checkbox_"].jstree-disabled.jstree-hovered {
+    background: #c0002655;
+}
+
+.jstree-default .jstree-disabled > .jstree-icon {
+    opacity: 1;
+    filter: none;
+    -webkit-filter: grayscale(0%);
+}

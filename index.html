@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Flexível</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
+    <link rel="stylesheet" href="js/themes/default/style.css" />
+    <link rel="stylesheet" href="js/scroll/simple-scrollbar.css" />
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/jstree.js"></script>
+    <script src="js/jstree.checkbox.js"></script>
+    <script src="js/jstree.search.js"></script>
+    <script src="js/jstree.types.js"></script>
+    <script src="arvore.js"></script>
+    <script src="js/scroll/simple-scrollbar.min.js"></script>
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script src="dados/PEMOB.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        // Captura o elemento com id 'app'
+        const app = document.getElementById("app");
+
+        // Criação das duas divs
+        const div1 = document.createElement("div");
+        const div2 = document.createElement("div");
+        const div3 = document.createElement("div");
+
+        // Adiciona classes para estilização
+        div1.classList.add("div1");
+        div1.id = 'arvore';
+        div2.classList.add("div2");
+        div2.id = 'sheet';
+        div3.classList.add("div3");
+        div3.id = 'Tree';
+
+        // Adiciona as divs como filhos de 'app'
+        app.appendChild(div1);
+        app.appendChild(div2);
+        div1.appendChild(div3);
+
+        TreeBuilder()
+        SimpleScrollbar.initEl(document.getElementById("arvore"));
+        
+        let grid = new gridjs.Grid({
+            columns: ["Município", "Unidade Federativa", "variavel"],
+            search: true,
+            pagination: true,
+            fixedHeader: true,
+            height: '450px',
+            width: '100%',
+            sort: true,
+            data: [],
+            language: {
+                search: {
+                    placeholder: "Buscar..."
+                },
+                sort: {
+                    sortAsc: "Ordenar Ascendente",
+                    sortDesc: "Ordenar Descendente"
+                },
+                pagination: {
+                    limit: 5,
+                    previous: "Anterior",
+                    next: "Próximo",
+                    showing: "Mostrando",
+                    of: "de",
+                    to: "até",
+                    results: "resultados"
+                },
+                loading: "Carregando...",
+                noRecordsFound: "Nenhum registro encontrado",
+                error: "Ocorreu um erro ao carregar os dados"
+            }
+        }).render(document.getElementById("sheet"));
+
+        $('#Tree').on("select_node.jstree", function(e, data) {
+            $('#Tree').jstree("deselect_all", true);
+            data.node.state.selected = true;
+            $('#Tree').jstree(true).redraw_node(data.node)
+        });
+
+        $('#Tree').on('select_node.jstree', function () {
+            let vetor_camadas_novo = getSelectedElementsTree();
+            let vetor_camadas_novo_text = [...vetor_camadas_novo].map(element => element.text);
+            let variavel = vetor_camadas_novo_text[0].toString();
+            variavel = variaveis.map(obj => obj[variavel]);
+            municipio = variaveis.map(obj => obj['Município']);
+            uf = variaveis.map(obj => obj['UF']);
+            dados(variavel, municipio, uf, vetor_camadas_novo_text[0].toString());
+        })
+
+        function getSelectedElementsTree() {
+            var arvore = $(div3).jstree(true).get_json('#', {flat:true});
+            var tamanho = arvore.length;
+            var vetor = [];
+            for (var i = 0; i < tamanho; i++) {
+                if (arvore[i].a_attr.class.includes('splus') && arvore[i].state.selected == true){
+                    vetor.push(arvore[i]);
+                }
+            }
+            return(vetor);
+        }
+
+        function dados(variavel, municipio, uf, nome) {
+            console.log(municipio.map((_, i) => [municipio[i], uf[i], variavel[i]]))
+            
+            setTimeout(() => {
+                grid.updateConfig({
+                    columns: ["Município", "Unidade Federativa", nome],
+                    data: municipio.map((_, i) => [municipio[i], uf[i], variavel[i]])
+                }).forceRender();
+            }, 2000);
+        }
+
+    </script>
+</body>
+</html>
