@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout Flexível</title>
+    <title>PEMOB</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
     <link rel="stylesheet" href="js/themes/default/style.css" />
     <link rel="stylesheet" href="js/scroll/simple-scrollbar.css" />
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="js/jstree.js"></script>
     <script src="js/jstree.checkbox.js"></script>
@@ -19,9 +20,85 @@
     <script src="js/scroll/simple-scrollbar.min.js"></script>
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     <script src="dados/PEMOB.js"></script>
+    <script src="https://cdn.plot.ly/plotly-3.0.0.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
 <body>
     <div id="app"></div>
+    <label for="estados">PEMOB:</label>
+	<select id="estados" multiple style="width: 300px;">
+		<option value="1">Anápolis</option>
+		<option value="2">Aparecida de Goiânia</option>
+		<option value="3">Aracaju</option>
+		<option value="4">Barueri</option>
+		<option value="5">Belo Horizonte</option>
+		<option value="6">Blumenau</option>
+		<option value="7">Boa Vista</option>
+		<option value="8">Brasília</option>
+		<option value="9">Camaçari</option>
+		<option value="10">Campina Grande</option>
+		<option value="11">Campinas</option>
+		<option value="12">Campo Grande</option>
+		<option value="13">Campos dos Goytacazes</option>
+		<option value="14">Carapicuíba</option>
+		<option value="15">Cariacica</option>
+		<option value="16">Caruaru</option>
+		<option value="17">Caucaia</option>
+		<option value="18">Chapecó</option>
+		<option value="19">Cotia</option>
+		<option value="20">Cuiabá</option>
+		<option value="21">Curitiba</option>
+		<option value="22">Feira de Santana</option>
+		<option value="23">Florianópolis</option>
+		<option value="24">Foz do Iguaçu</option>
+		<option value="25">Franca</option>
+		<option value="26">Goiânia</option>
+		<option value="27">Gravataí</option>
+		<option value="28">Itajaí</option>
+		<option value="29">Itaquaquecetuba</option>
+		<option value="30">Jaboatão dos Guararapes</option>
+		<option value="31">Jundiaí</option>
+		<option value="32">Limeira</option>
+		<option value="33">Londrina</option>
+		<option value="34">Maceió</option>
+		<option value="35">Manaus</option>
+		<option value="36">Maringá</option>
+		<option value="37">Mauá</option>
+		<option value="38">Nova Iguaçu</option>
+		<option value="39">Osasco</option>
+		<option value="40">Parnamirim</option>
+		<option value="41">Petrolina</option>
+		<option value="42">Petrópolis</option>
+		<option value="43">Ponta Grossa</option>
+		<option value="44">Porto Alegre</option>
+		<option value="45">Praia Grande</option>
+		<option value="46">Recife</option>
+		<option value="47">Ribeirão das Neves</option>
+		<option value="48">Rio Branco</option>
+		<option value="49">Rio de Janeiro</option>
+		<option value="50">Salvador</option>
+		<option value="51">Santa Maria</option>
+		<option value="52">Santarém</option>
+		<option value="53">Santo André</option>
+		<option value="54">Santos</option>
+		<option value="55">São Bernardo do Campo</option>
+		<option value="56">São Gonçalo</option>
+		<option value="57">São João de Meriti</option>
+		<option value="58">São José</option>
+		<option value="59">São José do Rio Preto</option>
+		<option value="60">São José dos Campos</option>
+		<option value="61">São José dos Pinhais</option>
+		<option value="62">São Paulo</option>
+		<option value="63">São Vicente</option>
+		<option value="64">Serra</option>
+		<option value="65">Sorocaba</option>
+		<option value="66">Taubaté</option>
+		<option value="67">Teresina</option>
+		<option value="68">Uberaba</option>
+		<option value="69">Vila Velha</option>
+		<option value="70">Vitória da Conquista</option>
+	</select>
+
     <script>
         // Captura o elemento com id 'app'
         const app = document.getElementById("app");
@@ -30,6 +107,8 @@
         const div1 = document.createElement("div");
         const div2 = document.createElement("div");
         const div3 = document.createElement("div");
+        const div4 = document.createElement("div");
+        const div5 = document.createElement("div");
 
         // Adiciona classes para estilização
         div1.classList.add("div1");
@@ -38,11 +117,17 @@
         div2.id = 'sheet';
         div3.classList.add("div3");
         div3.id = 'Tree';
+        div4.classList.add("div4")
+        div4.id = 'graph';
+        div5.classList.add("div5")
+        div5.id = 'distribution';
 
         // Adiciona as divs como filhos de 'app'
         app.appendChild(div1);
         app.appendChild(div2);
         div1.appendChild(div3);
+        app.appendChild(div4);
+        app.appendChild(div5);
 
         TreeBuilder()
         SimpleScrollbar.initEl(document.getElementById("arvore"));
@@ -95,6 +180,27 @@
             dados(variavel, municipio, uf, vetor_camadas_novo_text[0].toString());
         })
 
+        const data = [
+                {
+                type: 'scatterpolar',
+                r: [0,0,0,0,0],
+                theta: ['Total de Pontos de Embarque','Valor Atual da Tarifa Predominante','Frota de Ônibus Convencional', 'Quilometragem de Corredores Exclusivos de Ônibus', 'Arrecadação anual com Multas de Trânsito'],
+                fill: 'toself',
+                name: '',
+                showlegend: false
+            },
+        ]
+        const layout = {
+            polar: {
+                radialaxis: {
+                    visible: true,
+                    range: [0, 100]
+                }
+            }
+        }
+
+        Plotly.newPlot("graph", data, layout, { displayModeBar: false });
+
         function getSelectedElementsTree() {
             var arvore = $(div3).jstree(true).get_json('#', {flat:true});
             var tamanho = arvore.length;
@@ -116,6 +222,161 @@
                     data: municipio.map((_, i) => [municipio[i], uf[i], variavel[i]])
                 }).forceRender();
             }, 2000);
+        }
+
+        function radargraph(cidade, cidadename) {
+            const data = [
+                {
+                type: 'scatterpolar',
+                r: cidade,
+                theta: ['Total de Pontos de Embarque','Valor Atual da Tarifa Predominante','Frota de Ônibus Convencional', 'Quilometragem de Corredores Exclusivos de Ônibus', 'Arrecadação anual com Multas de Trânsito'],
+                fill: 'toself',
+                name: cidadename
+                }
+            ]
+            Plotly.addTraces("graph", data);
+        }
+
+        $(document).ready(function() {
+            $('#estados').select2({
+                placeholder: "Selecione as cidades",
+                allowClear: true
+            });
+        });
+        let vetor_cidades = [];
+        $('#estados').on('select2:select', function (e) {
+            let cidade = e.params.data.text;
+            vetor_cidades.push(cidade);
+            let vetor = [
+                (getValueByField('Município', cidade, 'Total de Pontos de Embarque')-6)*100/(9627-6),
+                100 - (getValueByField('Município', cidade, 'Valor Atual da Tarifa Predominante')-3.49)*100/(7-3.49),
+                (getValueByField('Município', cidade, 'Frota de Ônibus Convencional')-30)*100/(2919-30),
+                (getValueByField('Município', cidade, 'Quilometragem de Corredores Exclusivos de Ônibus')-0)*100/(628.5-0),
+                (getValueByField('Município', cidade, 'Arrecadação anual com Multas de Trânsito')-963047.74)*100/(1655827900-963047.74)
+            ]
+            let selected = $(this).val();
+            radargraph(vetor, cidade);
+            var dados_cidade = {
+                type: 'scatter',
+                x: vetor,
+                y: eixoy,
+                mode: 'markers',
+                name: cidade,
+                showlegend: true,
+                hovertemplate: '%{fullData.name}: %{x}<extra></extra>',
+                marker: {
+                    line: {
+                        width: 1,
+                    },
+                    symbol: 'circle',
+                    size: 16
+                }
+            };
+            Plotly.addTraces("distribution", [dados_cidade])
+        });
+
+        $('#estados').on('select2:unselect', function (e) {
+            let cidade = e.params.data.text;
+            let indice = vetor_cidades.indexOf(cidade) + 1;
+            let indice2 = indice + 70;
+            Plotly.deleteTraces('graph', indice);
+            Plotly.deleteTraces('distribution', indice2);
+            vetor_cidades = vetor_cidades.filter(city => city !== cidade);
+        });
+
+        function getValueByField(knownField, knownValue, targetField) {
+            const objeto = variaveis.find(obj => obj[knownField] === knownValue);
+            return objeto ? objeto[targetField] : null;
+        }
+        
+        
+        const eixoy = ['Total de Pontos de Embarque','Valor Atual da Tarifa Predominante','Frota de Ônibus Convencional', 'Quilometragem de Corredores Exclusivos de Ônibus', 'Arrecadação anual com Multas de Trânsito'];
+        var trace = {
+            type: 'scatter',
+            x: [1,1,1,1,1],
+            y: eixoy,
+            mode: 'markers',
+            showlegend: false,
+            marker: {
+                color: 'rgba(156, 165, 196, 0.95)',
+                line: {
+                    color: 'rgba(156, 165, 196, 1.0)',
+                    width: 1,
+                },
+            symbol: 'circle',
+            size: 16
+            }
+        };
+
+        var layout_dados = {
+            title: {
+                text: 'Distribuição horizontal dos dados da PEMOB',
+                font: {
+                    color: 'rgb(204, 204, 204)'
+                }
+            },
+            xaxis: {
+                range: [-5,105],
+                showgrid: false,
+                showline: true,
+                linecolor: 'rgb(102, 102, 102)',
+                tickfont: {
+                    font: {
+        color: 'rgb(102, 102, 102)'
+      }
+    },
+    tickmode: 'linear',
+    dtick: 10,
+    ticks: 'outside',
+    tickcolor: 'rgb(102, 102, 102)'
+  },
+  margin: {
+    l: 140,
+    r: 40,
+    b: 50,
+    t: 80
+  },
+  legend: {
+    font: {
+      size: 10,
+    },
+    yanchor: 'middle',
+    xanchor: 'right'
+  },
+  width: 400,
+  height: 400,
+  hovermode: 'closest'
+};
+
+Plotly.newPlot('distribution', [trace], layout_dados);
+        for (var i = 0; i < variaveis.length; i++){
+            let cidade_dado = variaveis[i].Município;
+            let vetor_dados_cidade = [
+                (getValueByField('Município', cidade_dado, 'Total de Pontos de Embarque')-6)*100/(9627-6),
+                100 - (getValueByField('Município', cidade_dado, 'Valor Atual da Tarifa Predominante')-3.49)*100/(7-3.49),
+                (getValueByField('Município', cidade_dado, 'Frota de Ônibus Convencional')-30)*100/(2919-30),
+                (getValueByField('Município', cidade_dado, 'Quilometragem de Corredores Exclusivos de Ônibus')-0)*100/(628.5-0),
+                (getValueByField('Município', cidade_dado, 'Arrecadação anual com Multas de Trânsito')-963047.74)*100/(1655827900-963047.74)
+            ]
+            var dados_cidade = {
+                type: 'scatter',
+                x: vetor_dados_cidade,
+                y: eixoy,
+                mode: 'markers',
+                name: cidade_dado,
+                showlegend: false,
+                hovertemplate: '%{fullData.name}: %{x}<extra></extra>',
+                marker: {
+                    color: 'rgba(156, 165, 196, 0.95)',
+                    line: {
+                        color: 'rgba(156, 165, 196, 1.0)',
+                        width: 1,
+                    },
+                    symbol: 'circle',
+                    size: 16
+                }
+            };
+            Plotly.addTraces("distribution", [dados_cidade])
         }
 
     </script>
