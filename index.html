@@ -315,6 +315,9 @@
                     color: 'rgb(204, 204, 204)'
                 }
             },
+            yaxis: {
+                tickfont: { size: 7 } 
+            },
             xaxis: {
                 range: [-5,105],
                 showgrid: false,
@@ -322,31 +325,31 @@
                 linecolor: 'rgb(102, 102, 102)',
                 tickfont: {
                     font: {
-        color: 'rgb(102, 102, 102)'
-      }
-    },
-    tickmode: 'linear',
-    dtick: 10,
-    ticks: 'outside',
-    tickcolor: 'rgb(102, 102, 102)'
-  },
-  margin: {
-    l: 140,
-    r: 40,
-    b: 50,
-    t: 80
-  },
-  legend: {
-    font: {
-      size: 10,
-    },
-    yanchor: 'middle',
-    xanchor: 'right'
-  },
-  width: 400,
-  height: 400,
-  hovermode: 'closest'
-};
+                        color: 'rgb(102, 102, 102)'
+                    }
+                },  
+                tickmode: 'linear',
+                dtick: 10,
+                ticks: 'outside',
+                tickcolor: 'rgb(102, 102, 102)'
+            },
+            margin: {
+                l: 140,
+                r: 40,
+                b: 50,
+                t: 80
+            },
+            legend: {
+                font: {
+                    size: 10,
+                },
+                yanchor: 'middle',
+                xanchor: 'right'
+            },
+            width: 400,
+            height: 400,
+            hovermode: 'closest'
+        };
 
 Plotly.newPlot('distribution', [trace], layout_dados, { displayModeBar: false });
         for (var i = 0; i < variaveis.length; i++){
