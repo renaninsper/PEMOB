@@ -348,7 +348,7 @@
   hovermode: 'closest'
 };
 
-Plotly.newPlot('distribution', [trace], layout_dados);
+Plotly.newPlot('distribution', [trace], layout_dados, { displayModeBar: false });
         for (var i = 0; i < variaveis.length; i++){
             let cidade_dado = variaveis[i].Município;
             let vetor_dados_cidade = [
